@@ -36,9 +36,10 @@ public class Books {
     @Override
     public String toString() {
         String barrowStatus;
+        String nameCapitalize = name.substring(0, 1).toUpperCase() + name.substring(1);
         if(this.isBorrow) barrowStatus="Not Available";
         else barrowStatus = "Available";
 
-        return "Book name=" + name + "/"+barrowStatus;
+        return "Book name: " + nameCapitalize + "/"+barrowStatus;
     }
 }

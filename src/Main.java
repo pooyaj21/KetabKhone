@@ -16,9 +16,9 @@ public class Main {
         Books b4 = new Books("dastan4");
 
         ketabKhone.addMember(m1);
-//        ketabKhone.addMember(m2);
-//        ketabKhone.addMember(m3);
-//        ketabKhone.addMember(m4);
+        ketabKhone.addMember(m2);
+        ketabKhone.addMember(m3);
+        ketabKhone.addMember(m4);
 
         ketabKhone.addBook(b1);
         ketabKhone.addBook(b2);

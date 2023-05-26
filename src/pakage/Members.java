@@ -31,6 +31,11 @@ public class Members {
 
     @Override
     public String toString() {
-        return "Member name='" + name + "/" + booksList;
+        String borrowed;
+        String nameCapitalize = name.substring(0, 1).toUpperCase() + name.substring(1);
+        if (booksList.isEmpty())borrowed="[-]";
+        else borrowed =booksList.toString();
+
+        return "Member name: " + nameCapitalize + "/" + borrowed;
     }
 }
