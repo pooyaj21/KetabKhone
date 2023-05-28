@@ -16,7 +16,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         String[] MainOptions = {"\n1- Books",
                 "2- Members",
                 "3- Lists",
@@ -53,12 +52,13 @@ public class Main {
                 "2- Find a Book",
                 "3- Edit a Book",
                 "4- Remove a Book",
-                "5- List of Books",
-                "6- Back to Main Manu",
+                "5- Book card",
+                "6- List of Books",
+                "7- Back to Main Manu",
         };
         Scanner scanner = new Scanner(System.in);
         int option = 0;
-        while (option != 6) {
+        while (option != 7) {
             printMenu(BooksOptions);
             try {
                 option = scanner.nextInt();
@@ -73,9 +73,12 @@ public class Main {
                         editBook();
                         break;
                     case 4:
-                        removeBook();
+                        bookCard();
                         break;
                     case 5:
+                        removeBook();
+                        break;
+                    case 6:
                         System.out.println(ketabKhone.printBooks());
                         break;
                 }
@@ -95,12 +98,13 @@ public class Main {
                 "4- Remove a Member",
                 "5- Barrow a Book",
                 "6- Back a Book",
-                "7- List of Members",
-                "8- Back to Main Manu",
+                "7- MemberShip Card",
+                "8- List of Members",
+                "9- Back to Main Manu",
         };
         Scanner scanner = new Scanner(System.in);
         int option = 0;
-        while (option != 8) {
+        while (option != 9) {
             printMenu(BooksOptions);
             try {
                 option = scanner.nextInt();
@@ -124,6 +128,9 @@ public class Main {
                         backBook();
                         break;
                     case 7:
+                        memberCard();
+                        break;
+                    case 8:
                         System.out.println(ketabKhone.printMembers());
                         break;
                 }
@@ -221,6 +228,16 @@ public class Main {
             System.err.println("\nThis Book don't exist.\n");
         }
     }
+    public static void bookCard(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the Book you want the Card for: ");
+        String bookName = sc.nextLine();
+        if (ketabKhone.isBookExists(bookName)) {
+            System.out.print(ketabKhone.getBook(bookName).bookCard());
+        } else {
+            System.err.println("\nThis Book don't exist.\n");
+        }
+    }
 
     public static void addMember() {
         Scanner sc = new Scanner(System.in);
@@ -234,7 +251,6 @@ public class Main {
             System.err.println("\nThis Book already exist.\n");
         }
     }
-
 
     public static void findMember() {
         Scanner sc = new Scanner(System.in);
@@ -285,9 +301,11 @@ public class Main {
             System.out.print("Enter the Book they want to Barrow:");
             String bookName = sc.nextLine();
             if (ketabKhone.isBookExists(bookName)) {
-                System.out.println(ketabKhone.getBook(bookName) + "add to" + ketabKhone.getMember(memberName));
-                ketabKhone.addBookToMember(ketabKhone.getMember(memberName), ketabKhone.getBook(bookName));
-            } else {
+                if(!ketabKhone.getBook(bookName).getIsBorrow()) {
+                    System.out.println(ketabKhone.getBook(bookName) + "add to" + ketabKhone.getMember(memberName));
+                    ketabKhone.addBookToMember(ketabKhone.getMember(memberName), ketabKhone.getBook(bookName));
+                }else System.err.print("\nThis Book is not Available\n");
+                } else {
                 System.err.println("\nThis Book don't exist.\n");
             }
         } else {
@@ -314,4 +332,14 @@ public class Main {
         }
     }
 
+    public static void memberCard(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the Member you want the Card for: ");
+        String memberName = sc.nextLine();
+        if (ketabKhone.isMemberExists(memberName)) {
+            System.out.print(ketabKhone.getMember(memberName).MemberShipCard());
+        } else {
+            System.err.println("\nThis Book don't exist.\n");
+        }
+    }
 }

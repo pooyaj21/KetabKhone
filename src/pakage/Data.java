@@ -1,6 +1,6 @@
 package pakage;
 
-public class Data {
+ class Data {
     private String name;
     private final String id;
     private static int counter;

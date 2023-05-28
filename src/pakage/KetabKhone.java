@@ -44,6 +44,7 @@ public class KetabKhone {
         for (Members members : membersList) {
             if (members == member) {
                 addBooksList(members, book);
+                book.memberBorrowed(members.getName());
             }
         }
     }

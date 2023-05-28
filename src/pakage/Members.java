@@ -7,7 +7,15 @@ public class Members extends Data {
     ArrayList<Books> booksList = new ArrayList<>();
 
     public Members(String name) {
-        super(name, "S-");
+        super(name, "M-");
+    }
+
+    public String MemberShipCard() {
+        String borrowed;
+        String nameCapitalize = this.getName().substring(0, 1).toUpperCase() + this.getName().substring(1);
+        if (booksList.isEmpty()) borrowed = "[-]";
+        else borrowed = booksList.toString();
+        return nameCapitalize + "\t" + "\t" + "\t" + this.getId() + "\n\n\n" + borrowed;
     }
 
     @Override
