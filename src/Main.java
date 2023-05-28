@@ -65,19 +65,15 @@ public class Main {
                 switch (option) {
                     case 1:
                         addBook();
-                        //TODO: add gate for adding existing name
                         break;
                     case 2:
                         findBook();
-                        //TODO : add option for when book is not there
                         break;
                     case 3:
                         editBook();
-                        //TODO : add option for when book is not there
                         break;
                     case 4:
                         removeBook();
-                        //TODO : add option for when book is not there
                         break;
                     case 5:
                         System.out.println(ketabKhone.printBooks());
@@ -111,29 +107,21 @@ public class Main {
                 switch (option) {
                     case 1:
                         addMember();
-                        //TODO: add gate for adding existing name
                         break;
                     case 2:
                         findMember();
-                        //TODO : add option for when Member is not there
                         break;
                     case 3:
                         editMember();
-                        //TODO : add option for when Member is not there
                         break;
                     case 4:
                         removeMember();
-                        //TODO : add option for when Member is not there
                         break;
                     case 5:
                         barrowBook();
-                        //TODO : add option for when Member is not there
-                        //TODO : add option for when book is not there
                         break;
                     case 6:
                         backBook();
-                        //TODO : add option for when Member is not there
-                        //TODO : add option for when book is not there
                         break;
                     case 7:
                         System.out.println(ketabKhone.printMembers());
@@ -147,6 +135,7 @@ public class Main {
             }
         }
     }
+
     public static void listOptions() {
         String[] BooksOptions = {"\n1- Members list",
                 "2- Books list",
@@ -183,9 +172,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your new Book name: ");
         String bookName = sc.nextLine();
-        Books newBook = new Books(bookName);
-        ketabKhone.addBook(newBook);
-        System.out.println("New Book add.");
+        if (!ketabKhone.isBookExists(bookName)) {
+            Books newBook = new Books(bookName);
+            ketabKhone.addBook(newBook);
+            System.out.println("\nNew Book add.\n");
+        } else {
+            System.err.println("\nThis Book already exist.\n");
+        }
     }
 
     public static void findBook() {
@@ -193,8 +186,12 @@ public class Main {
         Books chosenBook;
         System.out.print("Enter the Book you want to find: ");
         String bookName = sc.nextLine();
-        chosenBook = ketabKhone.getBook(bookName);
-        System.out.println("Your Book is:" + chosenBook);
+        if (ketabKhone.isBookExists(bookName)) {
+            chosenBook = ketabKhone.getBook(bookName);
+            System.out.println("\nYour Book is:" + chosenBook + "\n");
+        } else {
+            System.err.println("\nThis Book don't exist.\n");
+        }
     }
 
     public static void editBook() {
@@ -202,38 +199,54 @@ public class Main {
         Books chosenBook;
         System.out.print("Enter the Book you want to edit: ");
         String bookName = sc.nextLine();
-        chosenBook = ketabKhone.getBook(bookName);
-        System.out.print("Enter the Book new name: ");
-        String bookNewName = sc.nextLine();
-        ketabKhone.editBookName(chosenBook, bookNewName);
-        System.out.print("The Book has been edited.");
+        if (ketabKhone.isBookExists(bookName)) {
+            chosenBook = ketabKhone.getBook(bookName);
+            System.out.print("Enter the Book new name: ");
+            String bookNewName = sc.nextLine();
+            ketabKhone.editBookName(chosenBook, bookNewName);
+            System.out.print("The Book has been edited.");
+        } else {
+            System.err.println("\nThis Book don't exist.\n");
+        }
     }
 
     public static void removeBook() {
         Scanner sc = new Scanner(System.in);
-        Books chosenBook;
         System.out.print("Enter the Book you want to remove: ");
         String bookName = sc.nextLine();
-        ketabKhone.removeBook(ketabKhone.getBook(bookName));
-        System.out.print("The Book removed.");
+        if (ketabKhone.isBookExists(bookName)) {
+            ketabKhone.removeBook(ketabKhone.getBook(bookName));
+            System.out.print("The Book removed.");
+        } else {
+            System.err.println("\nThis Book don't exist.\n");
+        }
     }
 
     public static void addMember() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter your new Member name: ");
         String memberName = sc.nextLine();
-        Members newMember = new Members(memberName);
-        ketabKhone.addMember(newMember);
-        System.out.println("New Member add.");
+        if (!ketabKhone.isMemberExists(memberName)) {
+            Members newMember = new Members(memberName);
+            ketabKhone.addMember(newMember);
+            System.out.println("New Member add.");
+        } else {
+            System.err.println("\nThis Book already exist.\n");
+        }
     }
+
 
     public static void findMember() {
         Scanner sc = new Scanner(System.in);
         Members chosenMember;
         System.out.print("Enter the Member you want to find: ");
         String memberName = sc.nextLine();
-        chosenMember = ketabKhone.getMember(memberName);
-        System.out.println("Your Member is:" + chosenMember);
+        if (ketabKhone.isMemberExists(memberName)) {
+            chosenMember = ketabKhone.getMember(memberName);
+            System.out.println("Your Member is:" + chosenMember);
+        } else {
+            System.err.println("\nThis Member don't exist.\n");
+        }
     }
 
     public static void editMember() {
@@ -241,40 +254,64 @@ public class Main {
         Members chosenMember;
         System.out.print("Enter the Member you want to edit: ");
         String memberName = sc.nextLine();
-        chosenMember = ketabKhone.getMember(memberName);
-        System.out.print("Enter the Member new name: ");
-        String memberNewName = sc.nextLine();
-        ketabKhone.editMemberName(chosenMember, memberNewName);
-        System.out.print("The Member has been edited.");
+        if (ketabKhone.isMemberExists(memberName)) {
+            chosenMember = ketabKhone.getMember(memberName);
+            System.out.print("Enter the Member new name: ");
+            String memberNewName = sc.nextLine();
+            ketabKhone.editMemberName(chosenMember, memberNewName);
+            System.out.print("The Member has been edited.");
+        } else {
+            System.err.println("\nThis Member don't exist.\n");
+        }
     }
 
     public static void removeMember() {
         Scanner sc = new Scanner(System.in);
-        Members chosenMember;
         System.out.print("Enter the Member you want to remove: ");
         String memberName = sc.nextLine();
-        ketabKhone.removeMember(ketabKhone.getMember(memberName));
-        System.out.print("The Member removed.");
+        if (ketabKhone.isMemberExists(memberName)) {
+            ketabKhone.removeMember(ketabKhone.getMember(memberName));
+            System.out.print("The Member removed.");
+        } else {
+            System.err.println("\nThis Member don't exist.\n");
+        }
     }
 
-    public static void barrowBook(){
+    public static void barrowBook() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the Member that want to Barrow book: ");
         String memberName = sc.nextLine();
-        System.out.print("Enter the Book they want to Barrow:");
-        String bookName = sc.nextLine();
-        System.out.println(ketabKhone.getBook(bookName)+"add to"+ketabKhone.getMember(memberName));
-        ketabKhone.addBookToMember(ketabKhone.getMember(memberName),ketabKhone.getBook(bookName));
+        if (ketabKhone.isMemberExists(memberName)) {
+            System.out.print("Enter the Book they want to Barrow:");
+            String bookName = sc.nextLine();
+            if (ketabKhone.isBookExists(bookName)) {
+                System.out.println(ketabKhone.getBook(bookName) + "add to" + ketabKhone.getMember(memberName));
+                ketabKhone.addBookToMember(ketabKhone.getMember(memberName), ketabKhone.getBook(bookName));
+            } else {
+                System.err.println("\nThis Book don't exist.\n");
+            }
+        } else {
+            System.err.println("\nThis Member don't exist.\n");
+        }
     }
-    public static void backBook(){
+
+    public static void backBook() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the Member that want to Back book: ");
         String memberName = sc.nextLine();
-        System.out.print(ketabKhone.getMember(memberName));
-        System.out.print("Enter the Book they want to Back:");
-        String bookName = sc.nextLine();
-        System.out.println(ketabKhone.getBook(bookName)+"get back from"+ketabKhone.getMember(memberName));
-        ketabKhone.removeBookFromMember(ketabKhone.getMember(memberName),ketabKhone.getBook(bookName));
+        if (ketabKhone.isMemberExists(memberName)) {
+            System.out.print(ketabKhone.getMember(memberName));
+            System.out.print("Enter the Book they want to Back:");
+            String bookName = sc.nextLine();
+            if (ketabKhone.isBookExists(bookName)) {
+                System.out.println(ketabKhone.getBook(bookName) + "get back from" + ketabKhone.getMember(memberName));
+                ketabKhone.removeBookFromMember(ketabKhone.getMember(memberName), ketabKhone.getBook(bookName));
+            } else {
+                System.err.println("\nThis Book don't exist.\n");
+            }
+        } else {
+            System.err.println("\nThis Member don't exist.\n");
+        }
     }
 
 }

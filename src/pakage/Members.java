@@ -2,10 +2,9 @@ package pakage;
 
 import java.util.ArrayList;
 
-public class Members extends Data{
+public class Members extends Data {
 
-     ArrayList<Books> booksList = new ArrayList<>();
-
+    ArrayList<Books> booksList = new ArrayList<>();
 
     public Members(String name) {
         super(name, "S-");
@@ -15,8 +14,8 @@ public class Members extends Data{
     public String toString() {
         String borrowed;
         String nameCapitalize = this.getName().substring(0, 1).toUpperCase() + this.getName().substring(1);
-        if (booksList.isEmpty())borrowed="[-]";
-        else borrowed =booksList.toString();
+        if (booksList.isEmpty()) borrowed = "[-]";
+        else borrowed = booksList.toString();
 
         return "Member name: " + nameCapitalize + "/" + borrowed;
     }

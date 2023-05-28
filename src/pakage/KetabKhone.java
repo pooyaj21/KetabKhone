@@ -55,9 +55,11 @@ public class KetabKhone {
             }
         }
     }
+
     public void addBook(Books book) {
         booksList.add(book);
     }
+
     public void removeBook(Books book) {
         booksList.remove(book);
     }
@@ -76,14 +78,13 @@ public class KetabKhone {
             barrowBook(book);
         }
     }
+
     public void removeBooksList(Members member, Books book) {
         if (book.getIsBorrow()) {
             member.booksList.remove(book);
             barrowBook(book);
         }
     }
-
-
 
     public Books getBook(String bookName) {
         for (Books books : booksList) {
@@ -103,20 +104,16 @@ public class KetabKhone {
 
     public void editBookName(Books book, String newBookName) {
         for (Books books : booksList) {
-            if (books==book) {
+            if (books == book) {
                 books.setName(newBookName);
             }
         }
     }
 
-    public void deleteBook(Books book) {
-      booksList.remove(book);
-    }
-
-    public String printMembers(){
+    public String printMembers() {
         Members[] str = new Members[membersList.size()];
         String chap = "";
-        if (membersList.isEmpty())chap+="Nothing here to find\n";
+        if (membersList.isEmpty()) chap += "Nothing here to find\n";
         for (int i = 0; i < membersList.size(); i++) {
             str[i] = membersList.get(i);
         }
@@ -130,10 +127,10 @@ public class KetabKhone {
         return chap;
     }
 
-    public String printBooks(){
+    public String printBooks() {
         Books[] str = new Books[booksList.size()];
         String chap = "";
-        if (booksList.isEmpty())chap+="Nothing here to find\n";
+        if (booksList.isEmpty()) chap += "Nothing here to find\n";
         for (int i = 0; i < booksList.size(); i++) {
             str[i] = booksList.get(i);
         }
@@ -147,9 +144,26 @@ public class KetabKhone {
         return chap;
     }
 
+    public boolean isBookExists(String bookName){
+        for (Books books : booksList) {
+            if (books.getName().equals(bookName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isMemberExists(String memberName){
+        for (Members members : membersList) {
+            if (members.getName().equals(memberName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
-        return  "\nBooks:\n"+printBooks()+"Members:\n"+printMembers();
+        return "\nBooks:\n" + printBooks() + "Members:\n" + printMembers();
     }
 }

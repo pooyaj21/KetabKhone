@@ -7,7 +7,7 @@ public class Data {
 
     public Data(String name, String id) {
         this.name = name;
-        this.id = id+counter;
+        this.id = id + counter;
         counter++;
     }
 

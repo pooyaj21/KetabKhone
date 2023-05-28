@@ -1,6 +1,6 @@
 package pakage;
 
-public class Books extends Data{
+public class Books extends Data {
 
     private boolean isBorrow;
 
@@ -20,9 +20,9 @@ public class Books extends Data{
     public String toString() {
         String barrowStatus;
         String nameCapitalize = this.getName().substring(0, 1).toUpperCase() + this.getName().substring(1);
-        if(this.isBorrow) barrowStatus="Not Available";
+        if (this.isBorrow) barrowStatus = "Not Available";
         else barrowStatus = "Available";
 
-        return "Book name: " + nameCapitalize + "/"+barrowStatus;
+        return "Book name: " + nameCapitalize + "/" + barrowStatus;
     }
 }
