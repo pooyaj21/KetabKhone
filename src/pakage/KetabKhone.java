@@ -36,7 +36,7 @@ public class KetabKhone {
         }
     }
 
-    public void deleteMember(Members member) {
+    public void removeMember(Members member) {
         membersList.remove(member);
     }
 
@@ -58,9 +58,11 @@ public class KetabKhone {
     public void addBook(Books book) {
         booksList.add(book);
     }
+    public void removeBook(Books book) {
+        booksList.remove(book);
+    }
 
-
-    public void barrowBook(Books book) {
+    private void barrowBook(Books book) {
         for (Books books : booksList) {
             if (books == book) {
                 books.setBorrow(!books.getIsBorrow());
@@ -68,7 +70,7 @@ public class KetabKhone {
         }
     }
 
-    public void addBooksList(Members member, Books book) {
+    private void addBooksList(Members member, Books book) {
         if (!book.getIsBorrow()) {
             member.booksList.add(book);
             barrowBook(book);
@@ -148,6 +150,6 @@ public class KetabKhone {
 
     @Override
     public String toString() {
-        return  "Books:\n"+printBooks()+"Members:\n"+printMembers();
+        return  "\nBooks:\n"+printBooks()+"Members:\n"+printMembers();
     }
 }
