@@ -2,31 +2,99 @@ import pakage.Books;
 import pakage.KetabKhone;
 import pakage.Members;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Main {
+    KetabKhone ketabKhone = new KetabKhone();
+
+    public static void printMenu(String[] options) {
+        for (String option : options) {
+            System.out.println(option);
+        }
+        System.out.print("Choose your option : ");
+    }
+
     public static void main(String[] args) {
-        KetabKhone ketabKhone = new KetabKhone();
-        Members m1 = new Members("mamd");
-        Members m2 = new Members("asghar");
-        Members m3 = new Members("akbar");
-        Members m4 = new Members("naghi");
 
-        Books b1 = new Books("dastan1");
-        Books b2 = new Books("dastan2");
-        Books b3 = new Books("dastan3");
-        Books b4 = new Books("dastan4");
+        String[] MainOptions = {"\n1- Books",
+                "2- Members",
+                "3- Lists",
+                "4- Exit",
+        };
+        Scanner scanner = new Scanner(System.in);
+        int option = 0;
+        while (option != 4) {
+            printMenu(MainOptions);
+            try {
+                option = scanner.nextInt();
+                switch (option) {
+                    case 1:
+                        BooksOptions();
+                        break;
+                    case 2:
+                        System.out.println(2);
+                        break;
+                    case 3:
+                        System.out.println(3);
+                        break;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("Please enter an integer value between 1 and " + MainOptions.length);
+                scanner.next();
+            } catch (Exception ex) {
+                System.out.println("An unexpected error happened. Please try again");
+            }
+        }
+    }
 
-        ketabKhone.addMember(m1);
-        ketabKhone.addMember(m2);
-        ketabKhone.addMember(m3);
-        ketabKhone.addMember(m4);
+    public static void BooksOptions() {
+        String[] BooksOptions = {"\n1- Add a Book",
+                "2- Find a Book",
+                "3- Edit a Book",
+                "4- Remove a Book",
+                "5- List of Books",
+                "6- Back to Main Manu",
+        };
+        Scanner scanner = new Scanner(System.in);
+        int option = 0;
+        while (option != 6) {
+            printMenu(BooksOptions);
+            try {
+                option = scanner.nextInt();
+                switch (option) {
+                    case 1:
+                        System.out.println(1);
+                        break;
+                    case 2:
+                        System.out.println(2);
+                        break;
+                    case 3:
+                        System.out.println(3);
+                        break;
+                    case 4:
+                        System.out.println(4);
+                        break;
+                    case 5:
+                        System.out.println(5);
+                        break;
+                }
+            } catch (InputMismatchException ex) {
+                System.out.println("Please enter an integer value between 1 and " + BooksOptions.length);
+                scanner.next();
+            } catch (Exception ex) {
+                System.out.println("An unexpected error happened. Please try again");
+            }
+        }
+    }
 
-        ketabKhone.addBook(b1);
-        ketabKhone.addBook(b2);
-        ketabKhone.addBook(b3);
-        ketabKhone.addBook(b4);
+    public static void addBook() {
+        KetabKhone ketabKhone=new KetabKhone();
+        Books newBook;
+        Scanner sc = new Scanner(System.in);
 
-        ketabKhone.addBookToMember("mamd",b2);
-        ketabKhone.addBookToMember("mamd",b4);
-        System.out.println(ketabKhone);
+        System.out.print("Enter your new Book name: ");
+
+
     }
 }

@@ -1,28 +1,11 @@
 package pakage;
 
-public class Books {
-    private String name;
-    private String id;
-    private boolean isBorrow;
-    private static int counter;
+public class Books extends Data{
 
+    private boolean isBorrow;
 
     public Books(String name) {
-        this.name = name;
-        this.id = "B-"+counter;
-        counter++;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getId() {
-        return id;
+        super(name, "T-");
     }
 
     public void setBorrow(boolean borrow) {
@@ -36,7 +19,7 @@ public class Books {
     @Override
     public String toString() {
         String barrowStatus;
-        String nameCapitalize = name.substring(0, 1).toUpperCase() + name.substring(1);
+        String nameCapitalize = this.getName().substring(0, 1).toUpperCase() + this.getName().substring(1);
         if(this.isBorrow) barrowStatus="Not Available";
         else barrowStatus = "Available";
 
