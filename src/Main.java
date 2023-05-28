@@ -108,32 +108,32 @@ public class Main {
             printMenu(BooksOptions);
             try {
                 option = scanner.nextInt();
-                switch (option) {
-                    case 1:
-                        addMember();
-                        break;
-                    case 2:
-                        findMember();
-                        break;
-                    case 3:
-                        editMember();
-                        break;
-                    case 4:
-                        removeMember();
-                        break;
-                    case 5:
-                        barrowBook();
-                        break;
-                    case 6:
-                        backBook();
-                        break;
-                    case 7:
-                        memberCard();
-                        break;
-                    case 8:
-                        System.out.println(ketabKhone.printMembers());
-                        break;
-                }
+                    switch (option) {
+                        case 1:
+                            addMember();
+                            break;
+                        case 2:
+                            findMember();
+                            break;
+                        case 3:
+                            editMember();
+                            break;
+                        case 4:
+                            removeMember();
+                            break;
+                        case 5:
+                            barrowBook();
+                            break;
+                        case 6:
+                            backBook();
+                            break;
+                        case 7:
+                            memberCard();
+                            break;
+                        case 8:
+                            System.out.println(ketabKhone.printMembers());
+                            break;
+                    }
             } catch (InputMismatchException ex) {
                 System.out.println("Please enter an integer value between 1 and " + BooksOptions.length);
                 scanner.next();
@@ -228,7 +228,8 @@ public class Main {
             System.err.println("\nThis Book don't exist.\n");
         }
     }
-    public static void bookCard(){
+
+    public static void bookCard() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the Book you want the Card for: ");
         String bookName = sc.nextLine();
@@ -301,11 +302,11 @@ public class Main {
             System.out.print("Enter the Book they want to Barrow:");
             String bookName = sc.nextLine();
             if (ketabKhone.isBookExists(bookName)) {
-                if(!ketabKhone.getBook(bookName).getIsBorrow()) {
+                if (!ketabKhone.getBook(bookName).getIsBorrow()) {
                     System.out.println(ketabKhone.getBook(bookName) + "add to" + ketabKhone.getMember(memberName));
                     ketabKhone.addBookToMember(ketabKhone.getMember(memberName), ketabKhone.getBook(bookName));
-                }else System.err.print("\nThis Book is not Available\n");
-                } else {
+                } else System.err.print("\nThis Book is not Available\n");
+            } else {
                 System.err.println("\nThis Book don't exist.\n");
             }
         } else {
@@ -332,7 +333,7 @@ public class Main {
         }
     }
 
-    public static void memberCard(){
+    public static void memberCard() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the Member you want the Card for: ");
         String memberName = sc.nextLine();
