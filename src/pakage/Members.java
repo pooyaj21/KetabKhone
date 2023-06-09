@@ -4,10 +4,44 @@ import java.util.ArrayList;
 
 public class Members extends Data {
 
-    ArrayList<Books> booksList = new ArrayList<>();
+    private ArrayList<Books> booksList = new ArrayList<>();
 
     public Members(String name) {
         super(name, "M-");
+    }
+
+    public ArrayList<Books> getBooksList() {
+        return booksList;
+    }
+
+    public void addBookTOMember(Books book){
+        booksList.add(book);
+    }
+
+    public void removeBookTOMember(Books book){
+        booksList.remove(book);
+    }
+
+    public String bookThatMemberBorrowedToString() {
+        String print = "";
+        if (booksList.isEmpty()) print += "";
+        else {
+            for (Books name : booksList) {
+                print += name.getName() + "/";
+            }
+        }
+        return print;
+    }
+
+    public String bookThatMemberBorrowedForFile() {
+        String print = "";
+        if (booksList.isEmpty()) print += "";
+        else {
+            for (Books name : booksList) {
+                print += name.getName() + "\n";
+            }
+        }
+        return print;
     }
 
     public String MemberShipCard() {

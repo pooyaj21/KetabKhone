@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class Books extends Data {
 
     private boolean isBorrow;
-    ArrayList<String> membersBorrowed = new ArrayList<>();
+    private ArrayList<String> membersBorrowed = new ArrayList<>();
 
     public Books(String name) {
         super(name, "B-");
     }
 
-    void setBorrow(boolean borrow) {
+
+   public void setBorrow(boolean borrow) {
         isBorrow = borrow;
     }
 
@@ -19,16 +20,31 @@ public class Books extends Data {
         return isBorrow;
     }
 
+    public String getIsBorrowToString(){
+        return String.format("%b",isBorrow);
+    }
+
     void memberBorrowed(String memberName) {
         this.membersBorrowed.add(memberName);
     }
 
-    private String memberBorrowedToString() {
+    public String memberBorrowedToString() {
         String print = "";
         if (membersBorrowed.isEmpty()) print += "";
         else {
             for (String name : membersBorrowed) {
                 print += name + "/";
+            }
+        }
+        return print;
+    }
+
+    public String memberBorrowedForFile() {
+        String print = "";
+        if (membersBorrowed.isEmpty()) print += "";
+        else {
+            for (String name : membersBorrowed) {
+                print += name + "\n";
             }
         }
         return print;
