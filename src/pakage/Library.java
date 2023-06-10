@@ -1,16 +1,37 @@
 package pakage;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
-public class KetabKhone {
-    private static ArrayList<Members> membersList = new ArrayList<>();
-    private static ArrayList<Books> booksList = new ArrayList<>();
+public class Library {
+    private static final ArrayList<Member> membersList = new ArrayList<>();
+    private static final ArrayList<Book> booksList = new ArrayList<>();
 
-    public void addMember(Members member) {
+    private static Library library;
+
+    private Library() {
+    }
+
+    public static Library getInstance() {
+        if (library == null) {
+            library = new Library();
+        }
+        return library;
+    }
+
+     public  ArrayList<Member> getMembersList(){
+        return membersList;
+    }
+
+    public  ArrayList<Book> getBooksList(){
+        return booksList;
+    }
+
+    public void addMember(Member member) {
         membersList.add(member);
     }
 
-    public Members getMember(Members memberName) {
+    public Member getMember(Member memberName) {
         for (int i = 0; i < membersList.size(); i++) {
             if (membersList.get(i) == memberName) {
                 return membersList.get(i);
@@ -19,7 +40,7 @@ public class KetabKhone {
         return null;
     }
 
-    public Members getMember(String memberName) {
+    public Member getMember(String memberName) {
         for (int i = 0; i < membersList.size(); i++) {
             if (membersList.get(i).getName().equals(memberName)) {
                 return membersList.get(i);
@@ -28,67 +49,45 @@ public class KetabKhone {
         return null;
     }
 
-    public void editMemberName(Members member, String newMemberName) {
-        for (Members members : membersList) {
+    public void editMemberName(Member member, String newMemberName) {
+        for (Member members : membersList) {
             if (members == member) {
                 members.setName(newMemberName);
             }
         }
     }
 
-    public void removeMember(Members member) {
+    public void removeMember(Member member) {
         membersList.remove(member);
     }
 
-    public void addBookToMember(Members member, Books book) {
-        for (Members members : membersList) {
-            if (members == member) {
-                addBooksList(members, book);
-                book.memberBorrowed(members.getName());
-            }
-        }
-    }
-
-    public void removeBookFromMember(Members member, Books book) {
-        for (Members members : membersList) {
-            if (members == member) {
-                removeBooksList(members, book);
-            }
-        }
-    }
-
-    public void addBook(Books book) {
+    public void addBook(Book book) {
         booksList.add(book);
     }
 
-    public void removeBook(Books book) {
+    public void removeBook(Book book) {
         booksList.remove(book);
     }
 
-    private void barrowBook(Books book) {
-        for (Books books : booksList) {
+    public void barrowBook(Book book) {
+        for (Book books : booksList) {
             if (books == book) {
                 books.setBorrow(!books.getIsBorrow());
             }
         }
     }
 
-    private void addBooksList(Members member, Books book) {
+    public void barrowBook(Member member, Book book, BorrowRepository borrowRepository) {
         if (!book.getIsBorrow()) {
-            member.booksList.add(book);
+            borrowRepository.addInformation(member, book);
             barrowBook(book);
+        } else {
+            throw new InputMismatchException("Book is not Available");
         }
     }
 
-    public void removeBooksList(Members member, Books book) {
-        if (book.getIsBorrow()) {
-            member.booksList.remove(book);
-            barrowBook(book);
-        }
-    }
-
-    public Books getBook(String bookName) {
-        for (Books books : booksList) {
+    public Book getBook(String bookName) {
+        for (Book books : booksList) {
             if (books.getName().equals(bookName)) {
                 return books;
             }
@@ -96,15 +95,15 @@ public class KetabKhone {
         return null;
     }
 
-    public Books getBook(Books book) {
-        for (Books books : booksList) {
+    public Book getBook(Book book) {
+        for (Book books : booksList) {
             if (books == book) return books;
         }
         return null;
     }
 
-    public void editBookName(Books book, String newBookName) {
-        for (Books books : booksList) {
+    public void editBookName(Book book, String newBookName) {
+        for (Book books : booksList) {
             if (books == book) {
                 books.setName(newBookName);
             }
@@ -112,7 +111,7 @@ public class KetabKhone {
     }
 
     public String printMembers() {
-        Members[] str = new Members[membersList.size()];
+        Member[] str = new Member[membersList.size()];
         String chap = "";
         if (membersList.isEmpty()) chap += "Nothing here to find\n";
         for (int i = 0; i < membersList.size(); i++) {
@@ -121,7 +120,7 @@ public class KetabKhone {
 
         // Printing using for each loop
         int counter = 1;
-        for (Members k : str) {
+        for (Member k : str) {
             chap += String.format("%d. %s\n", counter, k);
             counter++;
         }
@@ -129,7 +128,7 @@ public class KetabKhone {
     }
 
     public String printBooks() {
-        Books[] str = new Books[booksList.size()];
+        Book[] str = new Book[booksList.size()];
         String chap = "";
         if (booksList.isEmpty()) chap += "Nothing here to find\n";
         for (int i = 0; i < booksList.size(); i++) {
@@ -138,15 +137,15 @@ public class KetabKhone {
 
         // Printing using for each loop
         int counter = 1;
-        for (Books k : str) {
+        for (Book k : str) {
             chap += String.format("%d. %s\n", counter, k);
             counter++;
         }
         return chap;
     }
 
-    public boolean isBookExists(String bookName){
-        for (Books books : booksList) {
+    public boolean isBookExists(String bookName) {
+        for (Book books : booksList) {
             if (books.getName().equals(bookName)) {
                 return true;
             }
@@ -154,8 +153,8 @@ public class KetabKhone {
         return false;
     }
 
-    public boolean isMemberExists(String memberName){
-        for (Members members : membersList) {
+    public boolean isMemberExists(String memberName) {
+        for (Member members : membersList) {
             if (members.getName().equals(memberName)) {
                 return true;
             }
@@ -167,4 +166,5 @@ public class KetabKhone {
     public String toString() {
         return "\nBooks:\n" + printBooks() + "Members:\n" + printMembers();
     }
+
 }
